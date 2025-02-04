@@ -5,21 +5,26 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { MoviesModule } from './movies/movies.module';
+import {config } from 'dotenv'
+
+config();
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres', 
-      host: 'localhost', 
-      port: 5432, 
-      username: 'admin', 
-      password: 'admin', 
-      database: 'moviebooking',
+      host: process.env.DB_HOST || 'localhost', 
+      port: parseInt(process.env.DB_PORT || '5432'), 
+      username: process.env.DB_USERNAME || 'admin', 
+      password: process.env.DB_PASSWORD || 'admin', 
+      database: process.env.DB_NAME || 'moviebooking',
       entities: [__dirname + '/**/*.entity{.ts,.js}'], 
       synchronize: true,
       logging: true,
     }),
     UsersModule,
     AuthModule,
+    MoviesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

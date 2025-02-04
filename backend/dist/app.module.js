@@ -17,6 +17,9 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
+const movies_module_1 = require("./movies/movies.module");
+const dotenv_1 = require("dotenv");
+(0, dotenv_1.config)();
 let AppModule = class AppModule {
     constructor(connection) {
         this.connection = connection;
@@ -34,17 +37,18 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
-                host: 'localhost',
-                port: 5432,
-                username: 'admin',
-                password: 'admin',
-                database: 'moviebooking',
+                host: process.env.DB_HOST || 'localhost',
+                port: parseInt(process.env.DB_PORT || '5432'),
+                username: process.env.DB_USERNAME || 'admin',
+                password: process.env.DB_PASSWORD || 'admin',
+                database: process.env.DB_NAME || 'moviebooking',
                 entities: [__dirname + '/**/*.entity{.ts,.js}'],
                 synchronize: true,
                 logging: true,
             }),
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
+            movies_module_1.MoviesModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

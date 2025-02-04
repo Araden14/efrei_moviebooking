@@ -5,7 +5,7 @@ import { JwtStrategy } from '../auth/jwt-auth.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('users')
+@ApiTags('Utilisateurs')
 @ApiBearerAuth()
 @Controller('users')
 export class UsersController {

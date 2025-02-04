@@ -4,7 +4,7 @@ import { InscriptionUserDto } from './dto/inscription.dto';
 import { ConnexionUserDto } from 'src/auth/dto/connexion.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('auth')
+@ApiTags('Authentification')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
