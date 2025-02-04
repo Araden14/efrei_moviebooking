@@ -1,19 +1,9 @@
-import { Injectable, Res } from '@nestjs/common';
-import { CreateUserDto } from './dto/inscription.dto';
-import { ConnexionUserDto } from './dto/connexion.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InscriptionUserDto } from '../auth/dto/inscription.dto';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { hashPassword } from 'src/utils/bcrypt';
-
-export type Userschema = {
-  id: number;
-  prenom: string;
-  nom: string;
-  email: string;
-  motdepasse: string;
-}
-
 
 @Injectable()
 export class UsersService {
@@ -21,10 +11,44 @@ export class UsersService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
-  async inscription(createUserDto: CreateUserDto) {
-    const hashedPassword = await hashPassword(createUserDto.motdepasse);
-    createUserDto.motdepasse = hashedPassword;
-    const user = this.userRepository.create(createUserDto);
+
+  async create(inscriptionUserDto: InscriptionUserDto) {
+    const hashedPassword = await hashPassword(inscriptionUserDto.motdepasse);
+    inscriptionUserDto.motdepasse = hashedPassword;
+    const user = this.userRepository.create(inscriptionUserDto);
     return this.userRepository.save(user);
   }
+
+  async findAll() {
+    return this.userRepository.find({
+      select: ['id', 'prenom', 'nom', 'email', 'createdAt', 'updatedAt']
+    });
+  }
+
+  async findOne(email: string) {
+    return this.userRepository.findOne({ where: { email } });
+  }
+
+  async findById(id: number) {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    return user;
+  }
+
+  async update(id: number, updateUserDto: Partial<InscriptionUserDto>) {
+    const user = await this.findById(id);
+    if (updateUserDto.motdepasse) {
+      updateUserDto.motdepasse = await hashPassword(updateUserDto.motdepasse);
+    }
+    Object.assign(user, updateUserDto);
+    return this.userRepository.save(user);
+  }
+
+  async remove(id: number) {
+    const user = await this.findById(id);
+    return this.userRepository.remove(user);
+  }
 }
+  

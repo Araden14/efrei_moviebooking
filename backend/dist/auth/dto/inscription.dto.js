@@ -9,29 +9,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateUserDto = void 0;
+exports.InscriptionUserDto = void 0;
 const class_validator_1 = require("class-validator");
-class CreateUserDto {
+class InscriptionUserDto {
 }
-exports.CreateUserDto = CreateUserDto;
+exports.InscriptionUserDto = InscriptionUserDto;
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "prenom", void 0);
+], InscriptionUserDto.prototype, "prenom", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "nom", void 0);
+], InscriptionUserDto.prototype, "nom", void 0);
 __decorate([
     (0, class_validator_1.IsEmail)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "email", void 0);
+], InscriptionUserDto.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.IsStrongPassword)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "motdepasse", void 0);
+], InscriptionUserDto.prototype, "motdepasse", void 0);
 //# sourceMappingURL=inscription.dto.js.map

@@ -22,11 +22,38 @@ let UsersService = class UsersService {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
-    async inscription(createUserDto) {
-        const hashedPassword = await (0, bcrypt_1.hashPassword)(createUserDto.motdepasse);
-        createUserDto.motdepasse = hashedPassword;
-        const user = this.userRepository.create(createUserDto);
+    async create(inscriptionUserDto) {
+        const hashedPassword = await (0, bcrypt_1.hashPassword)(inscriptionUserDto.motdepasse);
+        inscriptionUserDto.motdepasse = hashedPassword;
+        const user = this.userRepository.create(inscriptionUserDto);
         return this.userRepository.save(user);
+    }
+    async findAll() {
+        return this.userRepository.find({
+            select: ['id', 'prenom', 'nom', 'email', 'createdAt', 'updatedAt']
+        });
+    }
+    async findOne(email) {
+        return this.userRepository.findOne({ where: { email } });
+    }
+    async findById(id) {
+        const user = await this.userRepository.findOne({ where: { id } });
+        if (!user) {
+            throw new common_1.NotFoundException(`User with ID ${id} not found`);
+        }
+        return user;
+    }
+    async update(id, updateUserDto) {
+        const user = await this.findById(id);
+        if (updateUserDto.motdepasse) {
+            updateUserDto.motdepasse = await (0, bcrypt_1.hashPassword)(updateUserDto.motdepasse);
+        }
+        Object.assign(user, updateUserDto);
+        return this.userRepository.save(user);
+    }
+    async remove(id) {
+        const user = await this.findById(id);
+        return this.userRepository.remove(user);
     }
 };
 exports.UsersService = UsersService;

@@ -12,6 +12,8 @@ async function bootstrap() {
         .setDescription('The Movie Booker API description')
         .setVersion('1.0')
         .addTag('movies')
+        .addTag('auth')
+        .addBearerAuth()
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('api', app, document);

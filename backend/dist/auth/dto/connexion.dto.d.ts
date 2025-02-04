@@ -1,4 +1,4 @@
 export declare class ConnexionUserDto {
-    readonly email: string;
+    email: string;
     motdepasse: string;
 }

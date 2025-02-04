@@ -1,4 +1,4 @@
-export declare class CreateUserDto {
+export declare class InscriptionUserDto {
     readonly prenom: string;
     readonly nom: string;
     readonly email: string;
