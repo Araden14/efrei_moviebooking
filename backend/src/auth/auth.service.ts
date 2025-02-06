@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException, BadRequestException, UsePipes, ValidationPipe, ConflictException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { comparePasswords } from 'src/utils/bcrypt';
+import { comparePasswords } from '../utils/bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +18,7 @@ export class AuthService {
     }
     return null;
   }
+  
 
   async login(email: string, motdepasse: string) {
     const user = await this.validateUser(email, motdepasse);

@@ -1,7 +1,7 @@
 import { Controller, Post, Body, UseGuards, Request, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { InscriptionUserDto } from './dto/inscription.dto';
-import { ConnexionUserDto } from 'src/auth/dto/connexion.dto';
+import { ConnexionUserDto } from './dto/connexion.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Authentification')

@@ -1,3 +1,4 @@
+import { ReservationUser } from '../../reservations/entities/reservations_users.entity';
 export declare class User {
     id: number;
     prenom: string;
@@ -6,4 +7,5 @@ export declare class User {
     motdepasse: string;
     createdAt: Date;
     updatedAt: Date;
+    reservationsUsers: ReservationUser[];
 }

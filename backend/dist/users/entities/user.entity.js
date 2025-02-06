@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
+const reservations_users_entity_1 = require("../../reservations/entities/reservations_users.entity");
 let User = class User {
 };
 exports.User = User;
@@ -42,6 +43,10 @@ __decorate([
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)
 ], User.prototype, "updatedAt", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => reservations_users_entity_1.ReservationUser, (reservationUser) => reservationUser.user),
+    __metadata("design:type", Array)
+], User.prototype, "reservationsUsers", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)('users')
 ], User);

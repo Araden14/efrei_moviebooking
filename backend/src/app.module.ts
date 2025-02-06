@@ -7,6 +7,10 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { MoviesModule } from './movies/movies.module';
 import {config } from 'dotenv'
+import { ReservationsModule } from './reservations/reservations.module';
+import { User } from './users/entities/user.entity';
+import { Reservation } from './reservations/entities/reservations.entity';
+import { ReservationUser } from './reservations/entities/reservations_users.entity';
 
 config();
 @Module({
@@ -25,6 +29,7 @@ config();
     UsersModule,
     AuthModule,
     MoviesModule,
+    ReservationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
