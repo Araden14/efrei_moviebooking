@@ -69,9 +69,6 @@ export default function IndexPage() {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  // --- Active tab: "movies" or "featured" (NextUI Tabs are controlled by a string value) ---
-  const [activeTab, setActiveTab] = useState<string>("movies");
-
   // --- Debounce the search input: wait 2 seconds after the user stops typing ---
   useEffect(() => {
     // If the search input is empty, we use the default "action" query.
