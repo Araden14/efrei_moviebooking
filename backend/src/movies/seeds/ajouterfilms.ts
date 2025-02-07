@@ -14,6 +14,7 @@ async function getRandomMovies() {
       'Authorization': 'Bearer ' + process.env.TMBD_ACCESS_TOKEN
     }
   });
+  console.log(process.env.TMDB_ACCESS_TOKEN)
   const data = await response.json();
 
   return data.results.slice(0, 50);
