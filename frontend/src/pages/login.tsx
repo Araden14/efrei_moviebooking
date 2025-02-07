@@ -1,14 +1,17 @@
 import { useState } from "react";
 import DefaultLayout from "@/layouts/default";
-import {Card, CardHeader, CardBody, CardFooter} from "@heroui/card";
+import {Card, CardHeader, CardBody} from "@heroui/card";
 import {Input} from "@heroui/input";
 import {Button} from "@heroui/button";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  
+  const navigate = useNavigate();
 
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -28,7 +31,7 @@ export default function LoginPage() {
       );
 
       localStorage.setItem('token', response.data.access_token);
-      // Redirect or update state after successful login
+      navigate('/');
     } catch (err) {
       if (axios.isAxiosError(err)) {
         setError(err.response?.data?.message || 'Login failed. Please try again.');
