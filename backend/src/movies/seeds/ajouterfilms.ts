@@ -16,6 +16,8 @@ async function getRandomMovies() {
   });
   console.log(process.env.TMDB_ACCESS_TOKEN)
   const data = await response.json();
+  console.log(response)
+  console.log(data)
 
   return data.results.slice(0, 50);
 }
