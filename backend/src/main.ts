@@ -6,6 +6,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors({
+    origin: process.env.REACT_APP || 'http://localhost:5173',
+    credentials: true,
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Movie Booker API')

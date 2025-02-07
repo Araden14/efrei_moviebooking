@@ -32,6 +32,9 @@ let ReservationsController = class ReservationsController {
     delete(usereservationid, user) {
         return this.reservationsService.delete(user, usereservationid);
     }
+    creneauxList() {
+        return this.reservationsService.CreneauxList();
+    }
 };
 exports.ReservationsController = ReservationsController;
 __decorate([
@@ -74,6 +77,16 @@ __decorate([
     __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", void 0)
 ], ReservationsController.prototype, "delete", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, swagger_1.ApiOperation)({ summary: 'Récupérer tous les créneaux' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Liste de toutes les réservations récupérée avec succès.' }),
+    (0, swagger_1.ApiResponse)({ status: 500, description: 'Erreur serveur - Une erreur est survenue lors de la récupération.' }),
+    (0, common_1.Get)('all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], ReservationsController.prototype, "creneauxList", null);
 exports.ReservationsController = ReservationsController = __decorate([
     (0, swagger_1.ApiTags)('Réservations'),
     (0, swagger_1.ApiBearerAuth)(),

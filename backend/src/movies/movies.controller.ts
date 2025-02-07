@@ -14,6 +14,20 @@ const allowedSortBy = [
 export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
 
+  @Get('available')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Récupérer la liste des films disponibles dans votre cinéma' })
+  @ApiResponse({ status: 200, description: 'Liste des films récupérée avec succès' })
+  @ApiResponse({ status: 500, description: 'Erreur serveur - Une erreur est survenue lors de la récupération' })
+  async fetchAvailableMovies() {
+    try {
+      return await this.moviesService.fetchAvailableMovies();
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to fetch available movies');
+    }
+  }
+
   @Get()
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()

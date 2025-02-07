@@ -1,6 +1,6 @@
 import { AuthService } from './auth.service';
 import { InscriptionUserDto } from './dto/inscription.dto';
-import { ConnexionUserDto } from 'src/auth/dto/connexion.dto';
+import { ConnexionUserDto } from './dto/connexion.dto';
 export declare class AuthController {
     private authService;
     constructor(authService: AuthService);

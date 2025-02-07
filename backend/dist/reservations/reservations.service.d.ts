@@ -20,4 +20,11 @@ export declare class ReservationsService {
         updatedAt: Date;
     }[]>;
     delete(user: any, usereservationid: number): Promise<string>;
+    CreneauxList(): Promise<{
+        id: number;
+        movieId: number;
+        creneaux: number[];
+        createdAt: Date;
+        updatedAt: Date;
+    }[]>;
 }

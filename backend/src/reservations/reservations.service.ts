@@ -132,4 +132,13 @@ async delete(user: any, usereservationid: number){
    }
    return `Votre reservation pour le film ${movierow.titre} le ${date} a bien été annulée`;
 }
-}
+async CreneauxList() {
+    const reservations = await this.reservationsRepository.find()
+    return reservations.map(reservation => ({
+        id: reservation.id,
+        movieId: reservation.movieId,
+        creneaux: reservation.creneaux,
+        createdAt: reservation.createdAt,
+        updatedAt: reservation.updatedAt,
+    }));
+}}

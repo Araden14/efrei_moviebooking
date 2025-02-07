@@ -10,6 +10,8 @@ exports.MoviesModule = void 0;
 const common_1 = require("@nestjs/common");
 const movies_service_1 = require("./movies.service");
 const movies_controller_1 = require("./movies.controller");
+const movie_entity_1 = require("./entities/movie.entity");
+const typeorm_1 = require("@nestjs/typeorm");
 let MoviesModule = class MoviesModule {
 };
 exports.MoviesModule = MoviesModule;
@@ -17,6 +19,7 @@ exports.MoviesModule = MoviesModule = __decorate([
     (0, common_1.Module)({
         controllers: [movies_controller_1.MoviesController],
         providers: [movies_service_1.MoviesService],
+        imports: [typeorm_1.TypeOrmModule.forFeature([movie_entity_1.Movie])],
     })
 ], MoviesModule);
 //# sourceMappingURL=movies.module.js.map

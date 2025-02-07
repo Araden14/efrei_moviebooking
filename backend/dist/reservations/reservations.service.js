@@ -52,6 +52,10 @@ let ReservationsService = class ReservationsService {
             if (indice_creneau === -1) {
                 throw new common_2.BadRequestException("Le créneau demandé n'est pas disponible");
             }
+            const now = new Date();
+            if (movierow.date < now) {
+                throw new common_2.BadRequestException("Impossible de réserver pour une séance passée");
+            }
             const existingReservation = await this.reservationsUserRepository.findOne({
                 where: {
                     reservation: { id: reservationid },
@@ -118,8 +122,19 @@ let ReservationsService = class ReservationsService {
                 .execute();
         }
         catch (error) {
+            throw new common_1.InternalServerErrorException("Une erreur est survenue lors de la suppression de la réservation");
         }
         return `Votre reservation pour le film ${movierow.titre} le ${date} a bien été annulée`;
+    }
+    async CreneauxList() {
+        const reservations = await this.reservationsRepository.find();
+        return reservations.map(reservation => ({
+            id: reservation.id,
+            movieId: reservation.movieId,
+            creneaux: reservation.creneaux,
+            createdAt: reservation.createdAt,
+            updatedAt: reservation.updatedAt,
+        }));
     }
 };
 exports.ReservationsService = ReservationsService;

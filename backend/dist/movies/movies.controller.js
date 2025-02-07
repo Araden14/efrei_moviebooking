@@ -26,6 +26,14 @@ let MoviesController = class MoviesController {
     constructor(moviesService) {
         this.moviesService = moviesService;
     }
+    async fetchAvailableMovies() {
+        try {
+            return await this.moviesService.fetchAvailableMovies();
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Failed to fetch available movies');
+        }
+    }
     async fetchMovies(search, page, sortBy) {
         if (sortBy && !allowedSortBy.includes(sortBy)) {
             throw new common_1.BadRequestException('Invalid sortBy parameter');
@@ -42,6 +50,17 @@ let MoviesController = class MoviesController {
     }
 };
 exports.MoviesController = MoviesController;
+__decorate([
+    (0, common_1.Get)('available'),
+    (0, common_2.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, swagger_1.ApiBearerAuth)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Récupérer la liste des films disponibles dans votre cinéma' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Liste des films récupérée avec succès' }),
+    (0, swagger_1.ApiResponse)({ status: 500, description: 'Erreur serveur - Une erreur est survenue lors de la récupération' }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], MoviesController.prototype, "fetchAvailableMovies", null);
 __decorate([
     (0, common_1.Get)(),
     (0, common_2.UseGuards)((0, passport_1.AuthGuard)('jwt')),

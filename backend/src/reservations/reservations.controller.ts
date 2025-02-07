@@ -44,4 +44,13 @@ export class ReservationsController {
 delete(@Query('id') usereservationid: number, @GetUser() user){
   return this.reservationsService.delete(user, usereservationid)
 }
+
+@UseGuards(AuthGuard('jwt'))
+@ApiOperation({ summary: 'Récupérer tous les créneaux' })
+@ApiResponse({ status: 200, description: 'Liste de toutes les réservations récupérée avec succès.' })
+@ApiResponse({ status: 500, description: 'Erreur serveur - Une erreur est survenue lors de la récupération.' })
+@Get('all')
+creneauxList() {
+  return this.reservationsService.CreneauxList();
+}
 }

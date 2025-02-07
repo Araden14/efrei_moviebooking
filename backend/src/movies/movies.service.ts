@@ -1,10 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { config } from 'dotenv';
+import { Movie } from './entities/movie.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 config();
 
 @Injectable()
 export class MoviesService {
+  constructor(
+    @InjectRepository(Movie)
+    private moviesRepository: Repository<Movie>
+  ){}
   async fetchMovies(search : string, page : number, sortBy : string) {
     let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}`;
 
@@ -31,5 +38,8 @@ export class MoviesService {
 
     return data;
   }
+async fetchAvailableMovies() {
+  return await this.moviesRepository.find();
 }
 
+}
