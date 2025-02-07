@@ -6,15 +6,14 @@ config();
 
 async function getRandomMovies() {
   const page = Math.floor(Math.random() * 100);
-  const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`;
+  const apiKey = process.env.TMDB_API_KEY;
+  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`;
   console.log(url)
   const response = await fetch(url, {
     headers: {
-      'accept': 'application/json',
-      'Authorization': 'Bearer ' + process.env.TMBD_ACCESS_TOKEN
+      'accept': 'application/json'
     }
   });
-  console.log(process.env.TMDB_ACCESS_TOKEN)
   const data = await response.json();
   console.log(response)
   console.log(data)
